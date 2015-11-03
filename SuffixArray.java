@@ -193,11 +193,13 @@ public class SuffixArray {
 		}
 		String str = args[0];
 		SuffixArray sa = SuffixArray.build(str);
-		int[] naive = SuffixArray.buildNaive(str);
-		if (!Arrays.equals(sa.suffixArray, naive)) {
-			System.out.println(Arrays.toString(sa.suffixArray));
-			System.out.println(Arrays.toString(naive));
-			System.out.println("fail");
+		if (DEBUG) {
+			int[] naive = SuffixArray.buildNaive(str);
+			if (!Arrays.equals(sa.suffixArray, naive)) {
+				System.out.println(Arrays.toString(sa.suffixArray));
+				System.out.println(Arrays.toString(naive));
+				System.out.println("fail");
+			}
 		}
 		for (int i = 0; i < sa.suffixArray.length; ++i) {
 			System.out.printf("%2d %s\n", sa.suffixArray[i], str.substring(sa.suffixArray[i]));
