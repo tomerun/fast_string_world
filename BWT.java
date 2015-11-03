@@ -9,9 +9,9 @@ public class BWT {
 		SuffixArray sa = SuffixArray.build(str);
 		char[] transformed = new char[str.length()];
 		int pos = 0;
-		for (int i = 0; i < sa.SA.length; ++i) {
-			if (sa.SA[i] == 0) continue;
-			transformed[pos++] = str.charAt(sa.SA[i] - 1);
+		for (int i = 0; i < sa.suffixArray.length; ++i) {
+			if (sa.suffixArray[i] == 0) continue;
+			transformed[pos++] = str.charAt(sa.suffixArray[i] - 1);
 		}
 		System.out.println(String.valueOf(transformed));
 	}
