@@ -5,6 +5,8 @@ import java.util.BitSet;
 public class SuffixArray {
 
 	private static final boolean DEBUG = false;
+
+	/** contains suffix array indexes including sentinel */
 	int[] suffixArray;
 
 	private SuffixArray(String str) {
@@ -48,7 +50,7 @@ public class SuffixArray {
 		}
 		inducedSort(S, isStype, SA, bucketTail.clone());
 
-		// rename (reuse buffer for sort P)
+		// rename (reuse SA as buffer to sort P)
 		int[] S1 = new int[lmsIndex.size()];
 		int n1 = 1;
 		for (int i = 1; i < N; ++i) {
@@ -68,7 +70,6 @@ public class SuffixArray {
 		}
 		if (DEBUG) System.err.println("S1:" + Arrays.toString(S1) + " name:" + name + " n1:" + n1);
 
-		// recursive call
 		int[] SA1;
 		if (name + 1 == n1) {
 			// build SA directly
@@ -77,6 +78,7 @@ public class SuffixArray {
 				SA1[S1[i]] = i;
 			}
 		} else {
+			// recursive call
 			SA1 = rec(S1, name);
 		}
 		if (DEBUG) System.err.println("SA1:" + Arrays.toString(SA1));
@@ -152,6 +154,11 @@ public class SuffixArray {
 		return isStype.get(p) && !isStype.get(p - 1);
 	}
 
+	/**
+	 *  create Suffix Array using SA-IS algorithm
+	 *  @param str
+	 *         target string
+	 */
 	public static SuffixArray build(String str) {
 		return new SuffixArray(str);
 	}
@@ -187,7 +194,9 @@ public class SuffixArray {
 		String str = args[0];
 		SuffixArray sa = SuffixArray.build(str);
 		int[] naive = SuffixArray.buildNaive(str);
-		if (Arrays.equals(sa.suffixArray, naive)) {
+		if (!Arrays.equals(sa.suffixArray, naive)) {
+			System.out.println(Arrays.toString(sa.suffixArray));
+			System.out.println(Arrays.toString(naive));
 			System.out.println("fail");
 		}
 		for (int i = 0; i < sa.suffixArray.length; ++i) {
