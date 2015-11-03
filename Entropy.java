@@ -8,7 +8,7 @@ public class Entropy {
 
 	public static void main(String[] args) {
 		if (args.length == 0) {
-			System.out.println("usage: string [k]");
+			System.out.println("usage: java Entropy string [k]");
 			System.exit(1);
 		}
 		String str = args[0];
